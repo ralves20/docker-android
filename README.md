@@ -265,6 +265,7 @@ All docker images are protected by [Polyverse](https://polyverse.io/) by scrambl
 
 Special Thanks
 --------------
+- [Budi Utomo] for creating this great docker android image
 - [Gian Christanto] for creating a great logo!
 - [Otoniel Isidoro] for giving some ideas on how to adapt the code to use Detox
 
@@ -284,3 +285,4 @@ See [License](LICENSE.md)
 [sms]: <images/SMS.png>
 [gian christanto]: <https://www.linkedin.com/in/gian-christanto-0b398b131/>
 [otoniel isidoro]: <https://www.linkedin.com/in/otoniel-isidoro-61b38512/>
+[budi utomo]: <https://github.com/budtmo>
