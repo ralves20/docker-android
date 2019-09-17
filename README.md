@@ -6,71 +6,52 @@
 [![Join the chat at https://gitter.im/budtmo/docker-android](https://badges.gitter.im/budtmo/docker-android.svg)](https://gitter.im/budtmo/docker-android?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/budtmo/docker-android.svg?branch=master)](https://travis-ci.org/budtmo/docker-android)
 [![codecov](https://codecov.io/gh/budtmo/docker-android/branch/master/graph/badge.svg)](https://codecov.io/gh/budtmo/docker-android)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3f000ffb97db45a59161814e1434c429)](https://www.codacy.com/app/butomo1989/docker-appium?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=butomo1989/docker-appium&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3f000ffb97db45a59161814e1434c429)](https://www.codacy.com/app/butomo1989/docker-detox?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=butomo1989/docker-detox&amp;utm_campaign=Badge_Grade)
 [![GitHub release](https://img.shields.io/github/release/budtmo/docker-android.svg)](https://github.com/budtmo/docker-android/releases)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fbudtmo%2Fdocker-android.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fbudtmo%2Fdocker-android?ref=badge_shield)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-Docker-Android is a docker image built to be used for everything related to mobile website testing and Android project.
+Docker-Android-Detox is a docker image based on the Docker-Android https://github.com/budtmo/docker-android .
 
-Emulator - Samsung Device    | Emulator - Nexus Device     | Real Device  
-:---------------------------:|:---------------------------:|:---------------------------:
-![][emulator samsung]        |![][emulator nexus]          |![][real device]   
+However this image includes the configuration of the tool wix/Detox https://github.com/wix/Detox to allow the to test react-native apps on Android devices using [detox]
+
+For now there are just one Docker image for just one device which is: Nexus 5 - API 23 - Android 6.0.1
+
+Emulator - Nexus Device      |
+:---------------------------:|
+![][emulator nexus]          |
 
 Purposes
 --------
 
-1. Run UI tests for mobile websites with [appium]
-2. Build Android project and run unit tests with the latest build-tools
-3. Run UI tests for Android applications with different frameworks ([appium], [espresso], [robotium], etc.)
-4. Run monkey / stress tests
-5. SMS testing
+1. Run UI tests for React-native apps with [detox]
 
 Advantages compare with other docker-android projects
 -----------------------------------------------------
 
 1. noVNC to see what happen inside docker container
-2. Emulator for different devices / skins, such as Samsung Galaxy S6, LG Nexus 4, HTC Nexus One and more.
-3. Ability to connect to Selenium Grid
-4. Ability to control emulator from outside container by using adb connect
-5. Support real devices with screen mirroring
-6. Ability to record video during test execution for debugging
-7. Integrated with other cloud solutions, e.g. [Genymotion Cloud](https://www.genymotion.com/cloud/)
-8. Open source with more features coming
+2. Ability to test react-native apps
+3. First docker image that allows to run [detox] react-native tests
+4. Ability to connect to Selenium Grid
+5. Ability to control emulator from outside container by using adb connect
+6. Support real devices with screen mirroring
+7. Ability to record video during test execution for debugging
+8. Integrated with other cloud solutions, e.g. [Genymotion Cloud](https://www.genymotion.com/cloud/)
+9. Open source with more features coming
 
 List of Docker images
 ---------------------
 
-|OS   |Android   |API   |Browser   |Browser version   |Chromedriver   |Image   |Size   |
+|OS   |Android   |API   |Browser   |Browser version   |Chromedriver   |Image   |Device name|
 |:---|:---|:---|:---|:---|:---|:---|:---|
-|Linux|5.0.1|21|browser|37.0|2.21|budtmo/docker-android-x86-5.0.1|[![](https://images.microbadger.com/badges/image/budtmo/docker-android-x86-5.0.1.svg)](https://microbadger.com/images/budtmo/docker-android-x86-5.0.1 "Get your own image badge on microbadger.com")|
-|Linux|5.1.1|22|browser|39.0|2.13|budtmo/docker-android-x86-5.1.1|[![](https://images.microbadger.com/badges/image/budtmo/docker-android-x86-5.1.1.svg)](https://microbadger.com/images/budtmo/docker-android-x86-5.1.1 "Get your own image badge on microbadger.com")|
-|Linux|6.0|23|browser|44.0|2.18|budtmo/docker-android-x86-6.0|[![](https://images.microbadger.com/badges/image/budtmo/docker-android-x86-6.0.svg)](https://microbadger.com/images/budtmo/docker-android-x86-6.0 "Get your own image badge on microbadger.com")|
-|Linux|7.0|24|chrome|51.0|2.23|budtmo/docker-android-x86-7.0|[![](https://images.microbadger.com/badges/image/budtmo/docker-android-x86-7.0.svg)](https://microbadger.com/images/budtmo/docker-android-x86-7.0 "Get your own image badge on microbadger.com")|
-|Linux|7.1.1|25|chrome|55.0|2.28|budtmo/docker-android-x86-7.1.1|[![](https://images.microbadger.com/badges/image/budtmo/docker-android-x86-7.1.1.svg)](https://microbadger.com/images/budtmo/docker-android-x86-7.1.1 "Get your own image badge on microbadger.com")|
-|Linux|8.0|26|chrome|58.0|2.31|budtmo/docker-android-x86-8.0|[![](https://images.microbadger.com/badges/image/budtmo/docker-android-x86-8.0.svg)](https://microbadger.com/images/budtmo/docker-android-x86-8.0 "Get your own image badge on microbadger.com")|
-|Linux|8.1|27|chrome|61.0|2.33|budtmo/docker-android-x86-8.1|[![](https://images.microbadger.com/badges/image/budtmo/docker-android-x86-8.1.svg)](https://microbadger.com/images/budtmo/docker-android-x86-8.1 "Get your own image badge on microbadger.com")|
-|Linux|9.0|28|chrome|66.0|2.40|budtmo/docker-android-x86-9.0|[![](https://images.microbadger.com/badges/image/budtmo/docker-android-x86-9.0.svg)](https://microbadger.com/images/budtmo/docker-android-x86-9.0 "Get your own image badge on microbadger.com")|
-|Linux|10.0|29|chrome|74.0|74.0.3729.6|budtmo/docker-android-x86-10.0|[![](https://images.microbadger.com/badges/image/budtmo/docker-android-x86-10.0.svg)](https://microbadger.com/images/budtmo/docker-android-x86-10.0 "Get your own image badge on microbadger.com")|
-|All |-|-|-|-|-|budtmo/docker-android-real-device|[![](https://images.microbadger.com/badges/image/budtmo/docker-android-real-device.svg)](https://microbadger.com/images/budtmo/docker-android-real-device "Get your own image badge on microbadger.com")|
-|All|All|All|All|All|All|budtmo/docker-android-genymotion|[![](https://images.microbadger.com/badges/image/budtmo/docker-android-genymotion.svg)](https://microbadger.com/images/budtmo/docker-android-genymotion "Get your own image badge on microbadger.com")|
+|Linux|6.0.1|23|browser|44.0|2.18|detox12-reactnative-nexus5-android6-api-23|nexus_5_6.0.1|
 
 List of Devices
 ---------------
 
 Type   | Device Name
 -----  | -----
-Phone  | Samsung Galaxy S10
-Phone  | Samsung Galaxy S9
-Phone  | Samsung Galaxy S8
-Phone  | Samsung Galaxy S7 Edge
-Phone  | Samsung Galaxy S7
-Phone  | Samsung Galaxy S6
-Phone  | Nexus 4
 Phone  | Nexus 5
-Phone  | Nexus One
-Phone  | Nexus S
-Tablet | Nexus 7
 
 Requirements
 ------------
@@ -82,14 +63,9 @@ Quick Start
 
 1. Run Docker-Android
 
-	- For ***Linux OS***, please use image name that contains "x86"
-
 		```bash
-		docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S6" --name android-container budtmo/docker-android-x86-8.1
+		docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e --name android-container ralves20/detox12-reactnative-nexus5-android6-api-23
 		```
-
-	- For ***OSX*** and ***Windows OS***, please use Virtual Machine that support Virtualization with Ubuntu OS
-
 
 2. Verify the ip address of docker host.
 
@@ -102,6 +78,47 @@ Quick Start
    - For different OS, localhost should work.
 
 3. Open ***http://docker-host-ip-address:6080*** from web browser.
+
+
+Running in your project with docker-compose
+-----------
+
+Pre-requirements:
+   - You need to have docker-compose configurated on your computer.
+
+
+1. There is a docker-compose as an example on example/sample-compose-android.yml, you can use it as a basis for your usage.
+
+
+2. You are going to need to create an supervisord.conf file and using it as a volume for the supervisord inside the container, this is necessary because you need to modify supervisord section detox to run your detox tests. There is also an supervisord.conf example in example/sample-supervisord.conf.
+
+
+3. Modify your detox-test section on the bash command to execute the command that you need to run your tests.
+
+Example:
+```
+[program:detox-test]
+command=bash -c "yes | sdkmanager --licenses && cd /tmp/test && yarn detox:start & cd /tmp/test && yarn detox:build-android && cd /tmp/teste && yarn detox:test-android"
+autorestart=false
+stdout_logfile=/tmp/detox/detox.log
+stderr_logfile=/tmp/detox/detox_err.log
+priority=5
+```
+
+4. Now in your project you need to modify your package.json in the detox section and set the device name as the name of the device you choose before.
+
+Example:
+```
+      "android.emu.release": {
+        "binaryPath": "android/app/build/outputs/apk/release/app-release.apk",
+        "build": "cd android && RN_SRC_EXT=e2e.js E2E=true ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release && cd ..",
+        "type": "android.emulator",
+        "name": "nexus_5_6.0.1" //Here is the place where you need to set the device name
+      }
+```
+
+4. After generated the docker-compose file and generating your supervisord.conf, you can run your detox tests.
+
 
 Custom configurations
 ---------------------
@@ -130,7 +147,7 @@ Control Android connected to host (Emulator or Real Device)
 1. Create a docker container with this command 
 
 	```
-	$ docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -p 4723:4723 --name android-container-appium budtmo/docker-android-real-device
+	$ docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -p 4723:4723 --name android-container-detox budtmo/docker-android-real-device
 	```
 	
 2. Open noVNC [http://localhost:6080](http://localhost:6080)
@@ -149,13 +166,8 @@ Control Android connected to host (Emulator or Real Device)
 	$ adb -H host.docker.internal -P 5037 devices
 	```
 	
-5. Now your container can access your host devices. But, you need to add `remoteAdbHost` and `adbPort` desired capabilities to make **Appium** can recognise those devices.  
+5. Now your container can access your host devices. But, you need to add `remoteAdbHost` and `adbPort` desired capabilities to make **detox** can recognise those devices.  
 
-
-Appium and Selenium Grid
-------------------------
-
-If you want to use Appium and Selenium Grid, you can follow [this document](README_APPIUM_AND_SELENIUM.md). It also contains sample and use cases.
 
 Control android emulator outside container
 ------------------------------------------
@@ -233,7 +245,7 @@ Genymotion
   <img id="geny" src="./images/logo_genymotion_and_dockerandroid.png" />
 </p>
 
-For you who do not have ressources to maintain the simulator or to buy machines or need different device profiles, you need to give a try to [Genymotion Cloud](https://www.genymotion.com/cloud/). Docker-Android is integrated with Genymotion on different cloud services, e.g. Genymotion Cloud, AWS, GCP, Alibaba Cloud. Please follow [this document](README_GENYMOTION.md) or [this blog](https://medium.com/genymobile/run-your-appium-tests-using-docker-android-genymotion-cloud-e4817132ccd8) for more detail.
+For you who do not have ressources to maintain the simulator or to buy machines or need different device profiles, you need to give a try to [Genymotion Cloud](https://www.genymotion.com/cloud/). Docker-Android is integrated with Genymotion on different cloud services, e.g. Genymotion Cloud, AWS, GCP, Alibaba Cloud. Please follow [this document](README_GENYMOTION.md) or [this blog](https://medium.com/genymobile/run-your-detox-tests-using-docker-android-genymotion-cloud-e4817132ccd8) for more detail.
 
 Troubleshooting
 ---------------
@@ -254,6 +266,7 @@ All docker images are protected by [Polyverse](https://polyverse.io/) by scrambl
 Special Thanks
 --------------
 - [Gian Christanto] for creating a great logo!
+- [Otoniel Isidoro] for giving some ideas on how to adapt the code to use Detox
 
 LICENSE
 --------------
@@ -261,7 +274,7 @@ See [License](LICENSE.md)
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fbudtmo%2Fdocker-android.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fbudtmo%2Fdocker-android?ref=badge_large)
 
-[appium]: <https://appium.io>
+[detox]: <https://github.com/wix/Detox>
 [espresso]: <https://developer.android.com/training/testing/espresso/>
 [robotium]: <https://github.com/RobotiumTech/robotium>
 [emulator samsung]: <images/emulator_samsung_galaxy_s6.png>
@@ -270,3 +283,4 @@ See [License](LICENSE.md)
 [adb_connection]: <images/adb_connection.png>
 [sms]: <images/SMS.png>
 [gian christanto]: <https://www.linkedin.com/in/gian-christanto-0b398b131/>
+[otoniel isidoro]: <https://www.linkedin.com/in/otoniel-isidoro-61b38512/>
