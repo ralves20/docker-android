@@ -1,4 +1,4 @@
-FROM appium/appium:1.14.2-p0
+FROM appium/appium:1.14.0-p0
 
 LABEL maintainer "Budi Utomo <budtmo.os@gmail.com>"
 
@@ -102,8 +102,10 @@ RUN  wget -nv -O noVNC.zip "https://github.com/kanaka/noVNC/archive/${NOVNC_SHA}
 #======================
 # Install SDK packages
 #======================
-ARG ANDROID_VERSION=5.0.1
-ARG API_LEVEL=21
+ARG PLATFORM_TOOLS=29
+ARG BUILD_TOOLS=29.0.0
+ARG ANDROID_VERSION=6.0.1
+ARG API_LEVEL=24
 ARG PROCESSOR=x86
 ARG SYS_IMG=x86
 ARG IMG_TYPE=google_apis
@@ -130,7 +132,7 @@ ENV ANDROID_VERSION=$ANDROID_VERSION \
 ENV PATH ${PATH}:${ANDROID_HOME}/build-tools
 
 RUN yes | sdkmanager --licenses && \
-    sdkmanager "platforms;android-${API_LEVEL}" "system-images;android-${API_LEVEL};${IMG_TYPE};${SYS_IMG}" "emulator"
+    sdkmanager "platforms;android-${PLATFORM_TOOLS}" "build-tools;${BUILD_TOOLS}" "system-images;android-${API_LEVEL};${IMG_TYPE};${SYS_IMG}" "emulator"
 
 #==============================================
 # Download proper version of chromedriver
@@ -143,8 +145,8 @@ RUN wget -nv -O chrome.zip "https://chromedriver.storage.googleapis.com/${CHROME
 #================================================================
 # Download Google Play Services APK and Play Store from apklinker
 #================================================================
-Run wget -nv -O google_play_services.apk "https://www.apklinker.com/wp-content/uploads/uploaded_apk/5b5155e5ef4f8/com.google.android.gms_${GOOGLE_PLAY_SERVICE}-020700-204998136_12874013_MinAPI21_(x86)(nodpi)_apklinker.com.apk"
-Run wget -nv -O google_play_store.apk "https://www.apklinker.com/wp-content/uploads/uploaded_apk/5b632b1164e31/com.android.vending_${GOOGLE_PLAY_STORE}-all-0-PR-206665793_81105000_MinAPI16_(armeabi,armeabi-v7a,mips,mips64,x86,x86_64)(240,320,480dpi)_apklinker.com.apk"
+RUN wget -nv -O google_play_services.apk "https://www.apklinker.com/wp-content/uploads/uploaded_apk/5b5155e5ef4f8/com.google.android.gms_${GOOGLE_PLAY_SERVICE}-020700-204998136_12874013_MinAPI21_(x86)(nodpi)_apklinker.com.apk"
+RUN wget -nv -O google_play_store.apk "https://www.apklinker.com/wp-content/uploads/uploaded_apk/5b632b1164e31/com.android.vending_${GOOGLE_PLAY_STORE}-all-0-PR-206665793_81105000_MinAPI16_(armeabi,armeabi-v7a,mips,mips64,x86,x86_64)(240,320,480dpi)_apklinker.com.apk"
 
 #================================================
 # noVNC Default Configurations
@@ -191,12 +193,34 @@ EXPOSE 4723 6080 5554 5555
 #======================
 COPY devices /root/devices
 
-#===================
-# Run docker-appium
-#===================
+
+
+
+#====================================================
+# Detox configuration
+#====================================================
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN apt-get install -y nodejs
+RUN apt-get install -y build-essential module-assistant
+RUN apt-get update
+RUN apt-get install -y yarn
+RUN npm install -g yarn
+RUN yarn add global detox@12.11.2
+RUN yarn add global detox-cli
+RUN yarn add global jest
+RUN yarn add global react-native-cli
+
+
+
+
+#====================================================
+# Enable device to run Detox
+#====================================================
 COPY src /root/src
 COPY supervisord.conf /root/
 RUN chmod -R +x /root/src && chmod +x /root/supervisord.conf
+
+COPY avds/nexus_5_6.0.1.avd /root/.android/avd/nexus_5_6.0.1.avd
 
 HEALTHCHECK --interval=2s --timeout=40s --retries=1 \
     CMD timeout 40 adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done'
