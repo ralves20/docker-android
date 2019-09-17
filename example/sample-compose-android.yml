@@ -1,0 +1,37 @@
+# Note: It requires docker-compose 1.13.0
+#
+# Usage: docker-compose up -d
+version: "2.0"
+
+services:
+  selenium_hub:
+    image: selenium/hub:3.14.0-curium
+    ports:
+      - 4444:4444
+    
+  ruby-environment:
+    image: ralves20/detox12-reactnative-nexus5-android6-api-23:latest
+    privileged: true
+    tty: true
+    depends_on:
+      - selenium_hub
+    volumes:
+      - ./:/tmp/teste
+      - ./video:/tmp/video
+      - ./supervisord.conf:/root/supervisord.conf
+    devices:
+      - "/dev/kvm:/dev/kvm"
+      - "/dev/net/tun:/dev/net/tun"
+    environment:
+      - DEVICE=Nexus 5
+      - CONNECT_TO_GRID=false
+      - APPIUM=false
+      - SELENIUM_HOST=selenium_hub
+      - AUTO_RECORD=false
+    ports:
+      - 7070:7070
+      - 6080:6080
+      - 4723:4723
+      - 5678:5678
+      - 5555:5555
+      - 5554:5554
