@@ -201,16 +201,23 @@ COPY devices /root/devices
 #====================================================
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get install -y nodejs
-RUN apt-get install -y build-essential module-assistant
+RUN apt-get install -y build-essential module-assistant git nano
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN apt-get update
 RUN apt-get install -y yarn
-RUN npm install -g yarn
-RUN yarn add global detox@12.11.2
-RUN yarn add global detox-cli
-RUN yarn add global jest
-RUN yarn add global react-native-cli
+RUN npm install yarn -g
+RUN curl -o- -L https://yarnpkg.com/install.sh | bash
+# ENV PATH "$(yarn global bin)"
+# RUN export PATH=$PATH:"$(yarn global bin)"
 
+# ENV PATH "$(yarn global bin)"
+# ENV PATH=$HOME/.yarn/bin:$PATH
 
+RUN yarn global add detox@12.11.2
+RUN yarn global add detox-cli
+RUN yarn global add jest
+RUN yarn global add react-native-cli
 
 
 #====================================================
